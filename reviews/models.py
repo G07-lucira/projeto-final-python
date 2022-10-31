@@ -7,5 +7,5 @@ class Reviews(models.Models):
     description = models.TextField()
     recommended = models.BooleanField(default=False)
     
-    anime_id = models.ForeignKey("animes.Anime", on_delete=models.CASCADE, related_name="reviews")
-    user_id = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="reviews")
+    anime = models.ForeignKey("animes.Anime", on_delete=models.CASCADE, related_name="reviews")
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="reviews")
