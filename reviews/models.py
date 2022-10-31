@@ -2,7 +2,7 @@ from django.db import models
 import uuid
 
 class Reviews(models.Models):
-    id = models.UUIDField(default)
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     title = mdels.CharField(max_length=50)
     description = models.TextField()
     recommended = models.BooleanField(default=False)
