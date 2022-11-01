@@ -8,8 +8,13 @@ class Comment(models.Model):
     spoiler = models.BooleanField(default=False)
 
     user = models.ForeignKey(
-        "users.User", on_delete=models.CASCADE, related_name="comments"
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="comments"
     )
+    
     episode = models.ForeignKey(
-        "episodes.Episode", on_delete=models.CASCADE, related_name="comments"
+        "episodes.Episode",
+        on_delete=models.CASCADE,
+        related_name="comments"
     )

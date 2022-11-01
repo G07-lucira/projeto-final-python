@@ -1,14 +1,14 @@
 from django.db import models
 import uuid
 
-class Epidsode(models.Models):
+class Episode(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     name = models.CharField(max_length=127)
-    number = models.IntegerField()
+    epi_number = models.PositiveIntegerField()
     duration = models.CharField(max_length=10)
 
     anime = models.ForeignKey(
-        "Animes.animes",
+        "animes.Anime",
         on_delete=models.CASCADE,
         related_name="episodes"
     )
