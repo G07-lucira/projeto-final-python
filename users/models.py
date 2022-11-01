@@ -8,3 +8,9 @@ class User(AbstractUser):
     password = models.CharField(max_length = 50)
     bio = models.TextField()
     birthday = models.DateTimeField()
+
+    animes = models.ManyToManyField(
+        "animes.Anime",
+        through="users_animes.UserAnimes",
+        related_name="users"
+    )
