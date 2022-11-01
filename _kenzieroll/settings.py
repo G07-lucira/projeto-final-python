@@ -49,6 +49,7 @@ MY_APPS = [
     "users",
     "comments",
     "episodes",
+    "users_animes",
     "animes",
     "genres",
     "reviews",
