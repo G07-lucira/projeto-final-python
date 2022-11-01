@@ -26,7 +26,6 @@ class CreateDB(APIView):
             url = f"https://gogoanime.consumet.org/anime-details/{anime_id}"
             anime = requests.get(url, headers={})
             anime_db.append(anime.json())
-
         for anime in anime_db:
             genres = anime.pop("genres")
 
@@ -39,6 +38,7 @@ class CreateDB(APIView):
                 "current_status": anime["status"],
             }
 
+            ipdb.set_trace()
             anime_instance = Anime.objects.create(**new_anime)
 
             for genre in genres:
@@ -52,21 +52,3 @@ class CreateDB(APIView):
 class AnimesView(generics.ListCreateAPIView):
     queryset = Anime.objects.all()
     serializer_class = AnimeSerializer
-
-    # def create(self, validated_data: dict) -> Anime:
-    #     ipdb.set_trace()
-    #     genres = validated_data.data.pop("genres")
-    #     new_anime = Anime.objects.create(**validated_data.data)
-
-    #     for genre in genres:
-    #         genre_instance, _ = Genre.objects.get_or_create(**genre)
-    #         new_anime.genres.add(genre_instance)
-
-    #     return new_anime
-
-    # def perform_create(self, serializer):
-
-    # def get_serializer_class(self):
-    #     # if self.request.method == "GET":
-    #     #     return
-    #     ipdb.set_trace()
