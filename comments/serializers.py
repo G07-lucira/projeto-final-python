@@ -18,4 +18,4 @@ class CommentSerializer(serializers.ModelSerializer):
         read_only_fields = ["id"]
 
     def create(self, validated_data):
-        return Comment.create(validated_data)
+        return Comment.objects.create(validated_data)
