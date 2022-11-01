@@ -12,6 +12,5 @@ class User(AbstractUser):
     animes = models.ManyToManyField(
         "animes.Anime",
         through="users_animes.UserAnimes",
-        related_name="users",
-        null=True
+        related_name="users"
     )
