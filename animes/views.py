@@ -2,14 +2,19 @@ import ipdb
 import requests
 from genres.models import Genre
 from rest_framework import generics
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView, Request, Response, status
 
 from animes.models import Anime
 from animes.serializers import AnimeSerializer
 
+from .permissions import isAdmin
+
 
 # Create your views here.
 class CreateDB(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [isAdmin]
 
     # headers
     def get(self, request, *args, **kwargs):
@@ -50,5 +55,8 @@ class CreateDB(APIView):
 
 
 class AnimesView(generics.ListCreateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [isAdmin]
+
     queryset = Anime.objects.all()
     serializer_class = AnimeSerializer

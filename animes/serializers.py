@@ -27,7 +27,6 @@ class AnimeSerializer(serializers.ModelSerializer):
 
     genres = GenreSerializer(many=True)
 
-
     def create(self, validated_data: dict) -> Anime:
         if Anime.objects.filter(name=validated_data["name"]).exists():
             raise Error({"message": "Anime already exists"})
