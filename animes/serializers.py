@@ -25,7 +25,6 @@ class AnimeSerializer(serializers.ModelSerializer):
     def create(self, validated_data: dict) -> Anime:
         genres = validated_data.pop("genres")
         new_anime = Anime.objects.create(**validated_data)
-        ipdb.set_trace()
         for genre in genres:
             genre_instance, _ = Genre.objects.get_or_create(**genre)
             new_anime.genres.add(genre_instance)
