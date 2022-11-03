@@ -1,8 +1,11 @@
 import ipdb
+from episodes.serializers import EpisodeDetailSerializer
 from genres.models import Genre
 from genres.serializers import GenreSerializer
 from rest_framework import serializers
 from rest_framework.exceptions import APIException
+from reviews.serializers import ReviewSerializer
+
 
 from animes.models import Anime
 
@@ -15,10 +18,8 @@ class AnimeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Anime
         fields = "__all__"
-        ready_only_fields = ["episodes"]
 
     genres = GenreSerializer(many=True)
-    # episodes = EpisodeSerializer(many=True)
 
     def create(self, validated_data: dict) -> Anime:
         if Anime.objects.filter(name=validated_data["name"]).exists():
@@ -31,3 +32,13 @@ class AnimeSerializer(serializers.ModelSerializer):
             new_anime.genres.add(genre_instance)
 
         return new_anime
+
+
+class AnimeDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Anime
+        fields = "__all__"
+
+    genres = GenreSerializer(many=True, read_only=True)
+    episodes = EpisodeDetailSerializer(many=True, read_only=True)
+    # reviews = ReviewSerializer(many=True, read_only=True)
