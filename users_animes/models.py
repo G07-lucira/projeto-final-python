@@ -10,7 +10,7 @@ class UserAnimes(models.Model):
 
     user = models.ForeignKey(
         "users.User",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
 
     anime = models.ForeignKey(
