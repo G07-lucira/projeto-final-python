@@ -5,7 +5,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import APIException
 
 from animes.models import Anime
-
+from episodes.serializers import EpisodeDetailSerializer
 
 class Error(APIException):
     status_code = 403
@@ -18,7 +18,7 @@ class AnimeSerializer(serializers.ModelSerializer):
         ready_only_fields = ["episodes"]
 
     genres = GenreSerializer(many=True)
-    # episodes = EpisodeSerializer(many=True)
+    episodes = EpisodeDetailSerializer(many=True)
 
     def create(self, validated_data: dict) -> Anime:
         if Anime.objects.filter(name=validated_data["name"]).exists():
