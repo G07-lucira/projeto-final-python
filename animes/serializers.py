@@ -15,6 +15,7 @@ class Error(APIException):
 
 
 class AnimeSerializer(serializers.ModelSerializer):
+    genres = GenreSerializer(many=True)
     class Meta:
         model = Anime
         fields = "__all__"

@@ -31,8 +31,8 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
 class UserDetailSerializer(serializers.ModelSerializer):
-    animes = AnimeSerializer
+    animes = AnimeSerializer(many=True)
     class Meta:
         model = User
 
-        fields = [ "username","date_joined","bio","birthday","animes"]
+        fields = [ "username","date_joined","bio","birthday","animes" ]
