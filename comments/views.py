@@ -7,22 +7,16 @@ from comments.serializers import CommentSerializer, CommentDetailSerializer
 from .mixins import SerializerByMethodMixin
 
 
-class ListCreateCommentView(
-    SerializerByMethodMixin,
-    generics.ListCreateAPIView,
-):
+class CreateCommentView(generics.CreateAPIView):
     authentication_classes = [TokenAuthentication]
     queryset = Comment.objects.all()
-    serializer_map = {
-        "GET": CommentDetailSerializer,
-        "POST": CommentSerializer,
-    }
+    serializer_class = [CommentSerializer]
     lookup_url_kwarg = "episode_id"
 
 
 class RetrieveUpdateDestroyCommentView(
     SerializerByMethodMixin,
-    generics.RetrieveUpdateDestroyAPIView,
+    generics.RetrieveUpdateDestroyAPIVew,
 ):
     authentication_classes = [TokenAuthentication]
     queryset = Comment.objects.all()
