@@ -18,12 +18,11 @@ class AnimeSerializer(serializers.ModelSerializer):
     genres = GenreSerializer(many=True)
     class Meta:
         model = Anime
-        
+
         fields = ["id", "anime_img", "name", "total_eps", "synopsis", "author", "release_date", "is_finished", "genres", ]
         ready_only_fields = ["episodes"]
 
-    
-    # episodes = EpisodeSerializer(many=True)
+    genres = GenreSerializer(many=True)
 
     def create(self, validated_data: dict) -> Anime:
         if Anime.objects.filter(name=validated_data["name"]).exists():
