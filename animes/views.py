@@ -2,14 +2,19 @@ import ipdb
 import requests
 from genres.models import Genre
 from rest_framework import generics
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView, Request, Response, status
 
 from animes.models import Anime
 from animes.serializers import AnimeSerializer
 
+from .permissions import isAdmin
+
 
 # Create your views here.
 class CreateDB(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [isAdmin]
 
     # headers
     def get(self, request, *args, **kwargs):
@@ -26,7 +31,6 @@ class CreateDB(APIView):
             url = f"https://gogoanime.consumet.org/anime-details/{anime_id}"
             anime = requests.get(url, headers={})
             anime_db.append(anime.json())
-
         for anime in anime_db:
             genres = anime.pop("genres")
 
@@ -39,6 +43,7 @@ class CreateDB(APIView):
                 "current_status": anime["status"],
             }
 
+            
             anime_instance = Anime.objects.create(**new_anime)
 
             for genre in genres:
@@ -50,23 +55,8 @@ class CreateDB(APIView):
 
 
 class AnimesView(generics.ListCreateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [isAdmin]
+
     queryset = Anime.objects.all()
     serializer_class = AnimeSerializer
-
-    # def create(self, validated_data: dict) -> Anime:
-    #     ipdb.set_trace()
-    #     genres = validated_data.data.pop("genres")
-    #     new_anime = Anime.objects.create(**validated_data.data)
-
-    #     for genre in genres:
-    #         genre_instance, _ = Genre.objects.get_or_create(**genre)
-    #         new_anime.genres.add(genre_instance)
-
-    #     return new_anime
-
-    # def perform_create(self, serializer):
-
-    # def get_serializer_class(self):
-    #     # if self.request.method == "GET":
-    #     #     return
-    #     ipdb.set_trace()
