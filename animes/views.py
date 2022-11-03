@@ -1,15 +1,12 @@
-import ipdb
-import requests
-from genres.models import Genre
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.views import APIView, Request, Response, status
+from utils.permissions import isAdminOrOwner
 
 from animes.models import Anime
-from animes.serializers import AnimeSerializer
 
-from .permissions import isAdmin
+from animes.serializers import AnimeSerializer, AnimeDetailsSerializer
 
+from utils.permissions import isAdmin
 
 # Create your views here.
 # class CreateDB(APIView):
@@ -55,8 +52,18 @@ from .permissions import isAdmin
 
 
 class AnimesView(generics.ListCreateAPIView):
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [isAdmin]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [isAdminOrOwner]
 
     queryset = Anime.objects.all()
     serializer_class = AnimeSerializer
+
+class AnimesDetailsView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [isAdminOrOwner]
+    
+    queryset = Anime.objects
+    serializer_class = AnimeDetailsSerializer
+
+    lookup_url_kwarg = "anime_id"
+
