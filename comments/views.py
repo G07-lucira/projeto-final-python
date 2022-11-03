@@ -22,10 +22,9 @@ class ListCreateCommentView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         episode_id = self.kwargs["episode_id"]
-
         episode = get_object_or_404(Episode, pk=episode_id)
 
-        serializer.save(episode=episode)
+        serializer.save(episode=episode, user=self.request.user)
 
 
 class RetrieveUpdateDestroyCommentView(generics.RetrieveUpdateDestroyAPIView):
