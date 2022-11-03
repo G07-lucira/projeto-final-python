@@ -10,49 +10,53 @@ from animes.serializers import AnimeSerializer
 
 from .permissions import isAdmin
 
-class CreateDB(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [isAdmin]
 
-    def get(self, request, *args, **kwargs):
+# Create your views here.
+# class CreateDB(APIView):
+#     authentication_classes = [TokenAuthentication]
+#     permission_classes = [isAdmin]
 
-        url = "https://gogoanime.consumet.org/top-airing"
-        api_call = requests.get(url, headers={})
-        api_json = api_call.json()
+#     # headers
+#     def get(self, request, *args, **kwargs):
 
-        anime_db = []
+#         # call another api for GET
+#         url = "https://gogoanime.consumet.org/top-airing"
+#         api_call = requests.get(url, headers={})
+#         api_json = api_call.json()
 
-        for anime in api_json:
-            anime_id = anime.pop("animeId")
-            url = f"https://gogoanime.consumet.org/anime-details/{anime_id}"
-            anime = requests.get(url, headers={})
-            anime_db.append(anime.json())
-        for anime in anime_db:
-            genres = anime.pop("genres")
+#         anime_db = []
 
-            new_anime = {
-                "name": anime["animeTitle"],
-                "total_eps": anime["totalEpisodes"],
-                "release_date": anime["releasedDate"],
-                "animeImg": anime["animeImg"],
-                "synopsis": anime["synopsis"],
-                "current_status": anime["status"],
-            }
+#         for anime in api_json:
+#             anime_id = anime.pop("animeId")
+#             url = f"https://gogoanime.consumet.org/anime-details/{anime_id}"
+#             anime = requests.get(url, headers={})
+#             anime_db.append(anime.json())
+#         for anime in anime_db:
+#             genres = anime.pop("genres")
 
-            
-            anime_instance = Anime.objects.create(**new_anime)
+#             new_anime = {
+#                 "name": anime["animeTitle"],
+#                 "total_eps": anime["totalEpisodes"],
+#                 "release_date": anime["releasedDate"],
+#                 "animeImg": anime["animeImg"],
+#                 "synopsis": anime["synopsis"],
+#                 "current_status": anime["status"],
+#             }
 
-            for genre in genres:
-                genre_instance, _ = Genre.objects.get_or_create(name=genre)
-                anime_instance.genres.add(genre_instance)
+#             ipdb.set_trace()
+#             anime_instance = Anime.objects.create(**new_anime)
 
-        anime_list = Anime.objects.all()
-        return Response(anime_list)
+#             for genre in genres:
+#                 genre_instance, _ = Genre.objects.get_or_create(name=genre)
+#                 anime_instance.genres.add(genre_instance)
+
+#         anime_list = Anime.objects.all()
+#         return Response(anime_list)
 
 
 class AnimesView(generics.ListCreateAPIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [isAdmin]
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [isAdmin]
 
     queryset = Anime.objects.all()
     serializer_class = AnimeSerializer
