@@ -10,16 +10,12 @@ from animes.serializers import AnimeSerializer
 
 from .permissions import isAdmin
 
-
-# Create your views here.
 class CreateDB(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [isAdmin]
 
-    # headers
     def get(self, request, *args, **kwargs):
 
-        # call another api for GET
         url = "https://gogoanime.consumet.org/top-airing"
         api_call = requests.get(url, headers={})
         api_json = api_call.json()
