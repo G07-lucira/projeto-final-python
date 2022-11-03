@@ -14,18 +14,11 @@ class Error(APIException):
 class AnimeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Anime
-        fields = [
-            "id",
-            "name",
-            "total_eps",
-            "release_date",
-            "current_status",
-            "animeImg",
-            "synopsis",
-            "genres",
-        ]
+        fields = "__all__"
+        ready_only_fields = ["episodes"]
 
     genres = GenreSerializer(many=True)
+    # episodes = EpisodeSerializer(many=True)
 
     def create(self, validated_data: dict) -> Anime:
         if Anime.objects.filter(name=validated_data["name"]).exists():
