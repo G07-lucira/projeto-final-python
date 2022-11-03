@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="04d2e0f7-bf03-4cd8-b73b-bb7a3dc17617" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/animes/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/animes/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/comments/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/comments/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/comments/migrations/0002_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/comments/migrations/0002_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/episodes/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/episodes/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genres/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/genres/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reviews/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/reviews/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reviews/migrations/0002_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/reviews/migrations/0002_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/migrations/0002_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/migrations/0002_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/migrations/0003_alter_user_animes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/permissions.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/permissions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users_animes/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/users_animes/migrations/0001_initial.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2H2fZD9tQO5XDF9kqAO28CNXmlh" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="projeto-final-python-M5-G07" type="Python.DjangoServer" factoryName="Django server">
+      <module name="projeto-final-python-M5-G07" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="04d2e0f7-bf03-4cd8-b73b-bb7a3dc17617" name="Changes" comment="" />
+      <created>1667488155979</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667488155979</updated>
+      <workItem from="1667488158993" duration="1069000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

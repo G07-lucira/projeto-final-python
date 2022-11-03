@@ -4,6 +4,7 @@ from rest_framework.views import Response, status
 from django.shortcuts import get_object_or_404
 
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from .models import UserAnimes
 from .serializers import UserAnimeSerializer
@@ -17,10 +18,11 @@ class UserAnimeView(generics.ListCreateAPIView):
     queryset = UserAnimes.objects.all()
     serializer_class = UserAnimeSerializer
     authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         anime_id = self.kwargs["anime_id"]
         anime = get_object_or_404(Anime, pk=anime_id)
         user = request.user
         user.animes.add(anime, through_defaults=request.data)
-        return Response(status.HTTP_200_OK)
+        return Response(None, status.HTTP_204_NO_CONTENT)
