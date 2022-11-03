@@ -43,7 +43,7 @@ class CreateDB(APIView):
                 "current_status": anime["status"],
             }
 
-            ipdb.set_trace()
+            
             anime_instance = Anime.objects.create(**new_anime)
 
             for genre in genres:
