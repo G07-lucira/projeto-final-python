@@ -6,7 +6,6 @@ from animes.models import Anime
 
 from animes.serializers import AnimeSerializer, AnimeDetailsSerializer
 
-from utils.permissions import isAdmin
 
 # Create your views here.
 # class CreateDB(APIView):
