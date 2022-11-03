@@ -3,7 +3,10 @@ from rest_framework.authentication import TokenAuthentication
 from utils.permissions import isAdminOrOwner
 
 from animes.models import Anime
-from animes.serializers import AnimeDetailsSerializer, AnimeSerializer
+
+from animes.serializers import AnimeSerializer, AnimeDetailsSerializer
+
+from utils.permissions import isAdmin
 
 # Create your views here.
 # class CreateDB(APIView):
@@ -55,7 +58,6 @@ class AnimesView(generics.ListCreateAPIView):
     queryset = Anime.objects.all()
     serializer_class = AnimeSerializer
 
-
 class AnimesDetailsView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [isAdminOrOwner]
@@ -64,3 +66,4 @@ class AnimesDetailsView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AnimeDetailsSerializer
 
     lookup_url_kwarg = "anime_id"
+
