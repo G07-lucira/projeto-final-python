@@ -6,7 +6,6 @@ from comments.serializers import CommentSerializer, CommentDetailSerializer
 
 from .mixins import SerializerByMethodMixin
 
-
 class CreateCommentView(generics.CreateAPIView):
     authentication_classes = [TokenAuthentication]
     queryset = Comment.objects.all()
@@ -16,7 +15,7 @@ class CreateCommentView(generics.CreateAPIView):
 
 class RetrieveUpdateDestroyCommentView(
     SerializerByMethodMixin,
-    generics.RetrieveUpdateDestroyAPIVew,
+    generics.RetrieveUpdateDestroyAPIView,
 ):
     authentication_classes = [TokenAuthentication]
     queryset = Comment.objects.all()
