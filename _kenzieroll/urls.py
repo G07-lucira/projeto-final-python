@@ -23,4 +23,5 @@ urlpatterns = [
     path("api/", include("episodes.urls")),
     path("api/", include("users_animes.urls")),
     path("api/", include("comments.urls")),
+    path("api/", include("reviews.urls"))
 ]
