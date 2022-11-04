@@ -1,41 +1,29 @@
-# customers/tests/tests_model.py
 from django.test import TestCase
-
-from model_bakery import baker
-
-from animes.serializers import AnimeSerializer
 from animes.models import Anime
-from genres.models import Genre
-
-import ipdb
-
 
 class GenreTestModel(TestCase):
     @classmethod
     def setUp(self):
-        self.genre_jojo = baker.make(
-            Genre,
-            name="Jojo",
-        )
-        self.anime_dungeon = baker.make(
-            Anime,
-            name = "Dungeon ni Deai o Motomeru no wa Machigatteiru Darou ka",
-            total_eps = 50,
-            anime_img = "https://animesbr.biz/wp-content/uploads/2019/07/hR4zYTRJZiSYooocDRPW7P3PCTF-185x278.jpg",
-            synopsis = "Baseado na light novel de mesmo nome escrita por Fujino Omori e ilustrada por Suzuhito Yasuda, Dungeon ni Deai o Motomeru no wa Machigatteiru Darou ka se passa no mundo de Orario, onde aventureiros se unem para caçar tesouros em labirintos subterrâneos conhecidos como Dungeon. No entanto, para Bell Cranel, fama e dinheiro estão em segundo plano; o que ele mais quer encontrar, na verdade, são garotas! Mas ele logo descobre que dentro de uma Dungeon tudo pode acontecer e, no fim, ele que acaba sendo a donzela em perigo!",
-            author = "Fujino Omori",
-            release_date = 6,
-            is_finished = True
-        )
-    def test_create_anime(self):
-        self.anime_one = self.anime_dungeon
-        genres=self.genre_jojo
-        self.anime_one.genres.add(genres)
-        serializer = AnimeSerializer(self.anime_one)
-        self.assertIsInstance(self.anime_one, Anime)
-        self.assertEqual(serializer.data["name"], "Dungeon ni Deai o Motomeru no wa Machigatteiru Darou ka")
-        self.assertEqual(serializer.data["synopsis"], "Baseado na light novel de mesmo nome escrita por Fujino Omori e ilustrada por Suzuhito Yasuda, Dungeon ni Deai o Motomeru no wa Machigatteiru Darou ka se passa no mundo de Orario, onde aventureiros se unem para caçar tesouros em labirintos subterrâneos conhecidos como Dungeon. No entanto, para Bell Cranel, fama e dinheiro estão em segundo plano; o que ele mais quer encontrar, na verdade, são garotas! Mas ele logo descobre que dentro de uma Dungeon tudo pode acontecer e, no fim, ele que acaba sendo a donzela em perigo!")
-        self.assertEqual(serializer.data["total_eps"], 50)
-        self.assertEqual(serializer.data["genres"][0]['name'], "Jojo")
-    
+        self.anime_data = {
+			"name": "Hellsing Ultimate",
+			"total_eps": 10,
+			"release_date": 2006,
+			"is_finished": True,
+			"author":"Kouta Hirano",
+			"anime_img": "https://gogocdn.net/images/anime/H/hellsing-ultimate.jpg",
+			"synopsis": "Vampires exist. It is the duty of Hellsing, a secret organization sponsored by the British government, to hide that frightening fact and protect the blissfully unaware populace. Along with its own personal army, Hellsing has secret weapons. Alucard, an incredibly powerful vampire, has been controlled by Hellsing for years. It is unclear how he feels about being a servant to the Hellsing family, but he certainly enjoys his job as a vampire exterminator. Seras is a fledgling vampire and former police woman. Although reluctant to embrace her new self, she is a valued member of the organization.\n\nIntegra Hellsing, the current leader, is usually fully capable of fulfilling her duty, but lately, vampire activity has been on the rise. Unfortunately, the cause is more alarming than anything she could have imagined. A group long thought dead has been plotting in secret since their apparent destruction over 50 years ago."
+		}
+        self.anime = Anime.objects.create(**self.anime_data)
+
+    def test_name_max_length(self):
+        max_length = self.anime._meta.get_field('name').max_length
+
+        self.assertEqual(max_length, 127)
+
+    def test_episode_is_positive(self):
+        positive = self.anime.total_eps > 0 
+        negative = self.anime.total_eps < 0 
+
+        self.assertTrue(positive)
+        self.assertFalse(negative)
 

@@ -4,7 +4,6 @@ from model_bakery import baker
 import ipdb
 
 class AccountModelTest(TestCase):
-
     @classmethod
     def setUpTestData(cls):
         cls.episode_create = baker.make_recipe('episodes.new_episode')
@@ -32,9 +31,3 @@ class AccountModelTest(TestCase):
 
     def test_episode_has_anime_id(self):
         self.assertTrue(self.episode_create.anime_id)
-
-    
-
-
-
-
