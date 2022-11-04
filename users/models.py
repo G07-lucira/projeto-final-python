@@ -7,11 +7,10 @@ class User(AbstractUser):
     email = models.CharField(max_length=120)
     password = models.CharField(max_length=120)
     bio = models.TextField(null=True)
-    birthday = models.DateTimeField(null=True)
+    birthday = models.DateField(null=True)
 
     animes = models.ManyToManyField(
         "animes.Anime",
         through="users_animes.UserAnimes",
-        related_name="users",
-        null=True
+        related_name="users"
     )
