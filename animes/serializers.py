@@ -8,7 +8,7 @@ from reviews.serializers import ReviewSerializer
 
 
 from animes.models import Anime
-
+from episodes.serializers import EpisodeDetailSerializer
 
 class Error(APIException):
     status_code = 403
