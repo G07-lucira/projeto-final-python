@@ -16,7 +16,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             "user"
         ] 
 
-        read_only_fields = ["id"]
+        read_only_fields = ["id","anime", "user"]
 
     def create(self, validated_data):
-        return Review.objects.create(validated_data)
+        return Review.objects.create(**validated_data)

@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-
+from django.forms import model_to_dict
 from rest_framework.views import APIView, Request, Response, status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.pagination import PageNumberPagination
@@ -16,7 +16,6 @@ class ReviewView(APIView):
 
     def post(self, request: Request, anime_id: int) -> Response:
         anime = get_object_or_404(Anime, pk=anime_id)
-        ipdb.set_trace()
         review_exist = Review.objects.filter(
             anime=anime, user=request.user).exists()
         if review_exist:
@@ -49,6 +48,20 @@ class ReviewIdView(APIView):
         return Response(serializer.data)
     def delete(self, request: Request, anime_id: int, review_id: int) -> Response:
         review = get_object_or_404(Review, id=review_id, anime_id=anime_id)
-        self.check_object_permissions(request, review.critic)
+        self.check_object_permissions(request, review.user)
         review.delete()
         return Response({}, status.HTTP_204_NO_CONTENT)
+    def patch(self, request: Request, anime_id: int, review_id: int) -> Response:
+        try:
+            review = Review.objects.get(id=review_id, anime=anime_id)
+        except Review.DoesNotExist:
+            return Response({"error": "Review not found"}, status.HTTP_404_NOT_FOUND)
+        
+        for key, value in request.data.items():
+            setattr(review, key, value)
+
+        review.save()
+
+        review_dict = model_to_dict(review)
+
+        return Response(review_dict, status.HTTP_201_CREATED)    
