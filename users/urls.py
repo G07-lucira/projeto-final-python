@@ -2,7 +2,7 @@ from django.urls import path
 from .views import CreateUserView, ListDetailUSerView
 from rest_framework.authtoken.views import obtain_auth_token
 
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView
 
 urlpatterns=[
     path('accounts/', CreateUserView.as_view()),
