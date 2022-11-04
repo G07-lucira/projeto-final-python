@@ -12,8 +12,8 @@ from episodes.models import Episode
 
 
 class ListCreateCommentView(generics.ListCreateAPIView):
-    permission_classes = [isAdminOrOwner]
     authentication_classes = [TokenAuthentication]
+    permission_classes = [isAdminOrOwner]
 
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
@@ -23,6 +23,7 @@ class ListCreateCommentView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         episode_id = self.kwargs["episode_id"]
         episode = get_object_or_404(Episode, pk=episode_id)
+        self.check_object_permissions(self.request, episode)
 
         serializer.save(episode=episode, user=self.request.user)
 
