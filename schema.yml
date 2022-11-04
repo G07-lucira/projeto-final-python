@@ -1,0 +1,1151 @@
+openapi: 3.0.3
+info:
+  title: KenzieRoll
+  version: 1.0.0
+  description: Projeto para otakus
+paths:
+  /api/accounts/:
+    get:
+      operationId: api_accounts_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedRegisterUserList'
+          description: ''
+    post:
+      operationId: api_accounts_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RegisterUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RegisterUser'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterUser'
+          description: ''
+  /api/accounts/{id}/:
+    get:
+      operationId: api_accounts_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetail'
+          description: ''
+    put:
+      operationId: api_accounts_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserDetail'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetail'
+          description: ''
+    patch:
+      operationId: api_accounts_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserDetail'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetail'
+          description: ''
+    delete:
+      operationId: api_accounts_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/animes/:
+    get:
+      operationId: api_animes_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAnimeList'
+          description: ''
+    post:
+      operationId: api_animes_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Anime'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Anime'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Anime'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Anime'
+          description: ''
+  /api/animes/{anime_id}/:
+    get:
+      operationId: api_animes_retrieve
+      parameters:
+      - in: path
+        name: anime_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this anime.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimeDetails'
+          description: ''
+    post:
+      operationId: api_animes_create_2
+      parameters:
+      - in: path
+        name: anime_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserAnime'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserAnime'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserAnime'
+        required: true
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAnime'
+          description: ''
+    put:
+      operationId: api_animes_update
+      parameters:
+      - in: path
+        name: anime_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this anime.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnimeDetails'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AnimeDetails'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AnimeDetails'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimeDetails'
+          description: ''
+    patch:
+      operationId: api_animes_partial_update
+      parameters:
+      - in: path
+        name: anime_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this anime.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAnimeDetails'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAnimeDetails'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAnimeDetails'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimeDetails'
+          description: ''
+    delete:
+      operationId: api_animes_destroy
+      parameters:
+      - in: path
+        name: anime_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this anime.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/animes/{anime_id}/episode/:
+    get:
+      operationId: api_animes_episode_list
+      parameters:
+      - in: path
+        name: anime_id
+        schema:
+          type: string
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedRegisterEpisodeList'
+          description: ''
+    post:
+      operationId: api_animes_episode_create
+      parameters:
+      - in: path
+        name: anime_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterEpisode'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RegisterEpisode'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RegisterEpisode'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterEpisode'
+          description: ''
+  /api/comments/{comment_id}/:
+    get:
+      operationId: api_comments_retrieve
+      parameters:
+      - in: path
+        name: comment_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentDetail'
+          description: ''
+    put:
+      operationId: api_comments_update
+      parameters:
+      - in: path
+        name: comment_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CommentDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CommentDetail'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentDetail'
+          description: ''
+    patch:
+      operationId: api_comments_partial_update
+      parameters:
+      - in: path
+        name: comment_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCommentDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCommentDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCommentDetail'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentDetail'
+          description: ''
+    delete:
+      operationId: api_comments_destroy
+      parameters:
+      - in: path
+        name: comment_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/episode/{episode_id}/:
+    get:
+      operationId: api_episode_retrieve
+      parameters:
+      - in: path
+        name: episode_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EpisodeDetail'
+          description: ''
+    put:
+      operationId: api_episode_update
+      parameters:
+      - in: path
+        name: episode_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EpisodeDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EpisodeDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EpisodeDetail'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EpisodeDetail'
+          description: ''
+    patch:
+      operationId: api_episode_partial_update
+      parameters:
+      - in: path
+        name: episode_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEpisodeDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEpisodeDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEpisodeDetail'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EpisodeDetail'
+          description: ''
+    delete:
+      operationId: api_episode_destroy
+      parameters:
+      - in: path
+        name: episode_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/episode/{episode_id}/comments/:
+    get:
+      operationId: api_episode_comments_list
+      parameters:
+      - in: path
+        name: episode_id
+        schema:
+          type: string
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCommentList'
+          description: ''
+    post:
+      operationId: api_episode_comments_create
+      parameters:
+      - in: path
+        name: episode_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+  /api/login/:
+    post:
+      operationId: api_login_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+components:
+  schemas:
+    Anime:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        anime_img:
+          type: string
+          maxLength: 127
+        name:
+          type: string
+          maxLength: 127
+        total_eps:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        synopsis:
+          type: string
+        author:
+          type: string
+          maxLength: 127
+        release_date:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        is_finished:
+          type: boolean
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/Genre'
+      required:
+      - anime_img
+      - author
+      - genres
+      - id
+      - is_finished
+      - name
+      - release_date
+      - synopsis
+      - total_eps
+    AnimeDetails:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/Genre'
+          readOnly: true
+        episodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/EpisodeDetail'
+          readOnly: true
+        name:
+          type: string
+          maxLength: 127
+        total_eps:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        anime_img:
+          type: string
+          maxLength: 127
+        synopsis:
+          type: string
+        author:
+          type: string
+          maxLength: 127
+        release_date:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        is_finished:
+          type: boolean
+      required:
+      - anime_img
+      - author
+      - episodes
+      - genres
+      - id
+      - is_finished
+      - name
+      - release_date
+      - synopsis
+      - total_eps
+    AuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        token:
+          type: string
+          readOnly: true
+      required:
+      - password
+      - token
+      - username
+    Comment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        comment:
+          type: string
+        spoiler:
+          type: boolean
+        user:
+          type: string
+          format: uuid
+          readOnly: true
+        episode:
+          type: string
+          format: uuid
+          readOnly: true
+      required:
+      - comment
+      - episode
+      - id
+      - user
+    CommentDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        comment:
+          type: string
+        spoiler:
+          type: boolean
+        user:
+          type: string
+          format: uuid
+        episode:
+          type: string
+          format: uuid
+      required:
+      - comment
+      - episode
+      - id
+      - user
+    EpisodeDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 127
+        epi_number:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        duration:
+          type: string
+          maxLength: 10
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+      required:
+      - comments
+      - duration
+      - epi_number
+      - id
+      - name
+    Genre:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 127
+      required:
+      - id
+      - name
+    PaginatedAnimeList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Anime'
+    PaginatedCommentList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+    PaginatedRegisterEpisodeList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegisterEpisode'
+    PaginatedRegisterUserList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegisterUser'
+    PatchedAnimeDetails:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/Genre'
+          readOnly: true
+        episodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/EpisodeDetail'
+          readOnly: true
+        name:
+          type: string
+          maxLength: 127
+        total_eps:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        anime_img:
+          type: string
+          maxLength: 127
+        synopsis:
+          type: string
+        author:
+          type: string
+          maxLength: 127
+        release_date:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        is_finished:
+          type: boolean
+    PatchedCommentDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        comment:
+          type: string
+        spoiler:
+          type: boolean
+        user:
+          type: string
+          format: uuid
+        episode:
+          type: string
+          format: uuid
+    PatchedEpisodeDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 127
+        epi_number:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        duration:
+          type: string
+          maxLength: 10
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+    PatchedUserDetail:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        date_joined:
+          type: string
+          format: date-time
+        bio:
+          type: string
+          nullable: true
+        birthday:
+          type: string
+          format: date
+          nullable: true
+        animes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Anime'
+    RegisterEpisode:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 127
+        epi_number:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        duration:
+          type: string
+          maxLength: 10
+        anime_id:
+          type: string
+          format: uuid
+          readOnly: true
+      required:
+      - anime_id
+      - duration
+      - epi_number
+      - id
+      - name
+    RegisterUser:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        email:
+          type: string
+          maxLength: 120
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 120
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        bio:
+          type: string
+          writeOnly: true
+          nullable: true
+        birthday:
+          type: string
+          format: date
+          writeOnly: true
+          nullable: true
+      required:
+      - email
+      - id
+      - password
+      - username
+    UserAnime:
+      type: object
+      properties:
+        last_watched:
+          type: string
+          format: date
+        current_episode:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        is_finished:
+          type: boolean
+        user:
+          $ref: '#/components/schemas/RegisterUser'
+        anime:
+          $ref: '#/components/schemas/Anime'
+      required:
+      - anime
+      - current_episode
+      - is_finished
+      - last_watched
+      - user
+    UserDetail:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        date_joined:
+          type: string
+          format: date-time
+        bio:
+          type: string
+          nullable: true
+        birthday:
+          type: string
+          format: date
+          nullable: true
+        animes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Anime'
+      required:
+      - animes
+      - username
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"

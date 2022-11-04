@@ -1,28 +1,33 @@
 from django.test import TestCase
-
-from django.test import TestCase
-
 from model_bakery import baker
 
-from animes.models import Anime
-from genres.models import Genre
-from episodes.models import Episode
+import ipdb
 
-class EpisodeTestModel(TestCase):
+class AccountModelTest(TestCase):
     @classmethod
-    def setUp(self):
-        self.anime = baker.make("animes.Anime")
-        self.episode_data =  {
-            "name": "um macaco no navio",
-            "epi_number": 1,
-            "duration": "22:30",
-            "anime": self.anime_x
-            }
-        self.episode = Episode.objects.create(**self.episode_data)
-    def test_episode_is_positive(self):
-        positive = self.anime.epi_number > 0 
-        negative = self.anime.epi_number < 0 
+    def setUpTestData(cls):
+        cls.episode_create = baker.make_recipe('episodes.new_episode')
+        
 
-        self.assertTrue(positive)
-        self.assertFalse(negative)  
+    def test_name_max_legth(self):
 
+        max_length = self.episode_create._meta.get_field('name').max_length
+
+        self.assertEqual(max_length, 127)
+
+    def test_duration_max_legth(self):
+
+        max_length = self.episode_create._meta.get_field('duration').max_length
+
+        self.assertEqual(max_length, 10)
+
+    def test_has_correct_fields(self):
+        self.assertEqual(self.episode_create.name, "Episode atulizado")
+        self.assertEqual(self.episode_create.epi_number, 1)
+        self.assertEqual(self.episode_create.duration, '18:00')
+    
+    def test_epi_number_is_positive(self):
+        self.assertTrue(self.episode_create.epi_number > 0)
+
+    def test_episode_has_anime_id(self):
+        self.assertTrue(self.episode_create.anime_id)
