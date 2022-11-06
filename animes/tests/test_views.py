@@ -48,6 +48,13 @@ class UserTestViews(APITestCase):
         self.assertEqual(post.status_code, 201)
         self.assertEqual(AnimeSerializer(instance=post.data).data, post.data)
 
+    def test_cannot_create_new_anime_without_necessary_infos(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.admin_token.key)
+        post = self.client.post(self.anime_uri, {}, format="json")
+        self.assertEqual(post.status_code, 400)
+        for key, value in post.data.items():
+            self.assertEqual(value[0][:], "This field is required.")
+    
     def test_cannot_create_new_anime_as_non_admin(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.user_token.key)
         post = self.client.post(self.anime_uri, self.anime_data, format="json")
