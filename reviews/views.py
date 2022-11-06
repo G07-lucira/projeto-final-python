@@ -40,7 +40,7 @@ class ReviewView(APIView):
 
 class ReviewIdView(APIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [CustomReviewPermission, CustomIdReviewPermission]
+    permission_classes = [CustomReviewPermission]
 
     def get(self, request: Request, anime_id: int, review_id: int) -> Response:
         review = get_object_or_404(Review, id=review_id, anime_id=anime_id)
@@ -64,4 +64,4 @@ class ReviewIdView(APIView):
 
         review_dict = model_to_dict(review)
 
-        return Response(review_dict, status.HTTP_201_CREATED)    
+        return Response(review_dict, status.HTTP_200_OK)    
