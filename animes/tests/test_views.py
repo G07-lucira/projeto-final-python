@@ -48,6 +48,24 @@ class UserTestViews(APITestCase):
         self.assertEqual(post.status_code, 201)
         self.assertEqual(AnimeSerializer(instance=post.data).data, post.data)
 
+    def test_can_list_animes_with_auth(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.user_token.key)
+        get = self.client.get(self.anime_uri)
+        self.assertEqual(get.status_code, 200)
+
+    def test_can_list_specific_anime_with_auth(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.user_token.key)
+        get = self.client.get(self.anime_uri)
+        self.assertEqual(get.status_code, 200)
+
+    def test_can_list_animes_without_auth(self):
+        get = self.client.get(self.anime_uri)
+        self.assertEqual(get.status_code, 200)
+
+    def test_can_list_specific_anime_without_auth(self):
+        get = self.client.get(self.anime_uri)
+        self.assertEqual(get.status_code, 200)
+
     def test_cannot_create_new_anime_without_necessary_infos(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.admin_token.key)
         post = self.client.post(self.anime_uri, {}, format="json")
