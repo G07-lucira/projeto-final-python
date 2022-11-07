@@ -1,6 +1,6 @@
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
-from utils.permissions import isAdminOrOwner
+from utils.permissions import isAdminOrOwner, isAdmin
 
 from animes.models import Anime
 
@@ -52,16 +52,16 @@ from animes.serializers import AnimeSerializer, AnimeDetailsSerializer
 
 class AnimesView(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [isAdminOrOwner]
+    permission_classes = [isAdmin]
 
     queryset = Anime.objects.all()
     serializer_class = AnimeSerializer
 
 class AnimesDetailsView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [isAdminOrOwner]
+    permission_classes = [isAdmin]
     
-    queryset = Anime.objects
+    queryset = Anime.objects.all()
     serializer_class = AnimeDetailsSerializer
 
     lookup_url_kwarg = "anime_id"
