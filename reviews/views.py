@@ -2,13 +2,11 @@ from django.shortcuts import get_object_or_404
 from django.forms import model_to_dict
 from rest_framework.views import APIView, Request, Response, status
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.pagination import PageNumberPagination
 
 from .models import Review
 from animes.models import Anime
 from .serializers import ReviewSerializer
 from .permissions import CustomReviewPermission, CustomIdReviewPermission
-import ipdb
 
 class ReviewView(APIView):
     authentication_classes = [TokenAuthentication]
@@ -26,34 +24,28 @@ class ReviewView(APIView):
         serializer.save(anime=anime, user=request.user)
         return Response(serializer.data, status.HTTP_201_CREATED)
 
-
-    def get(self, request: Request, anime_id: int) -> Response:
-        reviews = Review.objects.filter(anime_id=anime_id)
-        if not reviews:
-            return Response({"detail": "Not found."}, status.HTTP_404_NOT_FOUND)
-
-        result_page = self.paginate_queryset(reviews, request, view=self)
-
-        serializer = ReviewSerializer(result_page, many=True)
-
-        return self.get_paginated_response(serializer.data)
-
 class ReviewIdView(APIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [CustomReviewPermission]
+    permission_classes = [CustomIdReviewPermission]
 
-    def get(self, request: Request, anime_id: int, review_id: int) -> Response:
-        review = get_object_or_404(Review, id=review_id, anime_id=anime_id)
+    def get(self, request: Request, review_id: str) -> Response:
+        review = get_object_or_404(Review, id=review_id)
         serializer = ReviewSerializer(review)
         return Response(serializer.data)
-    def delete(self, request: Request, anime_id: int, review_id: int) -> Response:
-        review = get_object_or_404(Review, id=review_id, anime_id=anime_id)
+
+
+    def delete(self, request: Request, review_id: str) -> Response:
+        review = get_object_or_404(Review, id=review_id)
         self.check_object_permissions(request, review.user)
         review.delete()
         return Response({}, status.HTTP_204_NO_CONTENT)
-    def patch(self, request: Request, anime_id: int, review_id: int) -> Response:
+
+
+    def patch(self, request: Request, review_id: str) -> Response:
+        
         try:
-            review = Review.objects.get(id=review_id, anime=anime_id)
+            review = get_object_or_404(Review, id=review_id)
+            self.check_object_permissions(request, review.user)
         except Review.DoesNotExist:
             return Response({"error": "Review not found"}, status.HTTP_404_NOT_FOUND)
         

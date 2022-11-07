@@ -31,7 +31,7 @@ class ReviewTests(APITestCase):
 	        "recommended": True,
         }
         cls.reviews_uri = f"/api/reviews/{cls.anime.id}/"
-        cls.review_uri = f"/api/reviews/{cls.anime.id}/{cls.review.id}/" 
+        cls.review_uri = f"/api/reviews/{cls.review.id}/" 
     
     # OPEN ROUTE TESTS
     def test_all_users_can_list_all_reviews_by_anime_id(self):
