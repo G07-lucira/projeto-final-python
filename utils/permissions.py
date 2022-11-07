@@ -10,7 +10,7 @@ class isAdminOrOwner(permissions.BasePermission):
             req.user.is_authenticated
             and req.user.is_superuser
             or req.user.is_authenticated
-            and obj.id == req.user.id
+            and obj.user.id == req.user.id
         )
 
 class isAdmin(permissions.BasePermission):
