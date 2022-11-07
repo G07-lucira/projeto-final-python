@@ -7,7 +7,7 @@ from rest_framework.pagination import PageNumberPagination
 from .models import Review
 from animes.models import Anime
 from .serializers import ReviewSerializer
-from .permissions import CustomReviewPermission, CustomIdReviewPermission
+from .permissions import CustomReviewPermission, CustomIdReviewPermission, CustomReviewRestrictPermission
 import ipdb
 
 class ReviewView(APIView):
@@ -40,20 +40,21 @@ class ReviewView(APIView):
 
 class ReviewIdView(APIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [CustomReviewPermission, CustomIdReviewPermission]
+    permission_classes = [CustomReviewRestrictPermission, CustomReviewPermission, CustomIdReviewPermission]
 
     def get(self, request: Request, anime_id: int, review_id: int) -> Response:
         review = get_object_or_404(Review, id=review_id, anime_id=anime_id)
         serializer = ReviewSerializer(review)
         return Response(serializer.data)
     def delete(self, request: Request, anime_id: int, review_id: int) -> Response:
+        print(request.user)
         review = get_object_or_404(Review, id=review_id, anime_id=anime_id)
         self.check_object_permissions(request, review.user)
         review.delete()
         return Response({}, status.HTTP_204_NO_CONTENT)
     def patch(self, request: Request, anime_id: int, review_id: int) -> Response:
         try:
-            review = Review.objects.get(id=review_id, anime=anime_id)
+            review = get_object_or_404(Review, id=review_id, anime=anime_id)
         except Review.DoesNotExist:
             return Response({"error": "Review not found"}, status.HTTP_404_NOT_FOUND)
         
