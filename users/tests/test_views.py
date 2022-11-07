@@ -4,9 +4,6 @@ from rest_framework.authtoken.models import Token
 from users.serializers import RegisterUserSerializer, UserDetailSerializer
 from users.models import User
 
-from model_bakery import baker
-
-import ipdb
 
 class UserTestViews(APITestCase):
     
