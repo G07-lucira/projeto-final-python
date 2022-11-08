@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import UserAnimeView
+from .views import UserAnimeView, ListUserAnimeWatchlist, UpdateDeleteUserAnime
 
 urlpatterns=[
-    path('animes/<str:anime_id>/', UserAnimeView.as_view()),
+    path('watchlist/<str:anime_id>/fav/', UserAnimeView.as_view()),
+    path('watchlist/', ListUserAnimeWatchlist.as_view()),
+    path('watchlist/<pk>/', UpdateDeleteUserAnime.as_view()),
 ]
