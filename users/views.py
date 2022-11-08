@@ -1,10 +1,8 @@
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
-from utils.permissions import isAdminOrOwner
 
 from users.models import User
-from users.permissions import IsOwner, ListUsersValidation
+from users.permissions import isAdminOrOwner, ListUsersValidation
 from users.serializers import RegisterUserSerializer, UserDetailSerializer
 
 

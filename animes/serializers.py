@@ -25,14 +25,15 @@ class AnimeSerializer(serializers.ModelSerializer):
             "id",
             "anime_img",
             "name",
-            "total_eps",
             "synopsis",
             "author",
             "release_date",
             "is_finished",
             "genres",
         ]
-        ready_only_fields = ["episodes"]
+        ready_only_fields = [
+            "episodes",
+        ]
 
     genres = GenreSerializer(many=True)
 

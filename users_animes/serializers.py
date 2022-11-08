@@ -16,4 +16,11 @@ class UserAnimeSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAnimes
         fields = ["last_watched","current_episode","is_finished", "user", "anime"]
-        read_only_fields = ["user", "anime"]
+        read_only_fields = ["user", "anime", "last_watched"]
+
+class DetailedUserAnimeSerializer(serializers.ModelSerializer):
+    # anime = AnimeSerializer()
+    class Meta:
+        model = UserAnimes
+        fields = ["id", "anime", "last_watched", "current_episode","is_finished"]
+        read_only_fields = ["anime", "last_watched"]

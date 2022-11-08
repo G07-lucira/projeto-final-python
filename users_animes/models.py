@@ -4,7 +4,7 @@ import uuid
 
 class UserAnimes(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
-    last_watched = models.DateField()
+    last_watched = models.DateField(auto_now=True)
     current_episode = models.PositiveIntegerField()
     is_finished = models.BooleanField()
 
