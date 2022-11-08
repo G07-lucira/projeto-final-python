@@ -12,3 +12,15 @@ class ListUsersValidation(permissions.BasePermission):
         return bool(
             request.method == "POST" or request.user and request.user.is_authenticated
         )
+
+class isAdminOrOwner(permissions.BasePermission):
+    def has_object_permission(self, req, view, obj) -> bool:
+        if req.method in permissions.SAFE_METHODS:
+            return True
+            
+        return (
+            req.user.is_authenticated
+            and req.user.is_superuser
+            or req.user.is_authenticated
+            and obj.id == req.user.id
+        )
