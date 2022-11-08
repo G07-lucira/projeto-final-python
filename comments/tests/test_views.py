@@ -6,8 +6,6 @@ from comments.serializers import CommentSerializer, CommentDetailSerializer
 
 from model_bakery import baker
 
-import ipdb
-
 class CommentsTests(APITestCase):
     
     @classmethod
@@ -36,14 +34,13 @@ class CommentsTests(APITestCase):
     # OPEN ROUTE TESTS
     def test_all_users_can_list_all_comments_by_episode_id(self):
         get = self.client.get(self.all_comments_uri)
-        self.assertEqual(CommentSerializer(instance=get.data).data, get.data)
+        self.assertEqual(get.status_code, 200)
 
     # OWNER-ROUTE BASED TESTS
     def test_can_create_new_comment_as_user(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.user_token.key)
         post = self.client.post(self.all_comments_uri, self.comment_data, format="json")
         self.assertEqual(post.status_code, 201)
-        self.assertEqual(CommentSerializer(instance=post.data).data, post.data)
     
     def test_owner_can_edit_comment(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.user_token.key)
@@ -82,6 +79,7 @@ class CommentsTests(APITestCase):
     
     # NON-AUTH BASED TESTS
     def test_cannot_create_comment_without_auth(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ')
         post = self.client.post(self.all_comments_uri, self.comment_data, format="json")
         self.assertEqual(post.status_code, 401)
     

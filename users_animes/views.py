@@ -14,7 +14,6 @@ from users.models import User
 
 from utils.permissions import isAdminOrOwner
 
-import ipdb
 
 # Create your views here.
 class UserAnimeView(generics.CreateAPIView):

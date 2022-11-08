@@ -6,7 +6,6 @@ class GenreTestModel(TestCase):
     def setUp(self):
         self.anime_data = {
 			"name": "Hellsing Ultimate",
-			"total_eps": 10,
 			"release_date": 2006,
 			"is_finished": True,
 			"author":"Kouta Hirano",
@@ -19,11 +18,3 @@ class GenreTestModel(TestCase):
         max_length = self.anime._meta.get_field('name').max_length
 
         self.assertEqual(max_length, 127)
-
-    def test_episode_is_positive(self):
-        positive = self.anime.total_eps > 0 
-        negative = self.anime.total_eps < 0 
-
-        self.assertTrue(positive)
-        self.assertFalse(negative)
-
