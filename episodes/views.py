@@ -23,7 +23,7 @@ class CreateListEpisodeView(generics.ListCreateAPIView):
         anime_id = self.kwargs['anime_id']
 
         anime = get_object_or_404(Anime, pk=anime_id)
-
+        self.check_object_permissions(self.request, anime)
         serializer.save(anime=anime)
 
 
