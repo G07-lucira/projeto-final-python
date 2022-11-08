@@ -103,7 +103,7 @@ class UserTestViews(APITestCase):
            
     def test_can_not_update_a_episode_admin_only(self):
 
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.admin_token.key)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.owner_token.key)
         
         response_patch = self.client.patch(self.episode_updated_uri, self.episode_updated, format="json")
         
