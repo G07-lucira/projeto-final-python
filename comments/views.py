@@ -1,3 +1,4 @@
+import ipdb
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 
@@ -21,6 +22,7 @@ class ListCreateCommentView(generics.ListCreateAPIView):
     lookup_url_kwarg = "episode_id"
 
     def perform_create(self, serializer):
+        # ipdb.set_trace()
         episode_id = self.kwargs["episode_id"]
         episode = get_object_or_404(Episode, pk=episode_id)
         self.check_object_permissions(self.request, episode)
