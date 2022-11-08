@@ -1,10 +1,11 @@
+import ipdb
 from django.forms import model_to_dict
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView, Request, Response, status
 
 from animes.models import Anime
-import ipdb
+
 from .models import Review
 from .permissions import CustomIdReviewPermission, CustomReviewPermission
 from .serializers import ReviewSerializer
@@ -12,11 +13,11 @@ from .serializers import ReviewSerializer
 
 class ReviewView(APIView):
     authentication_classes = [TokenAuthentication]
-    permissions_classes = [CustomReviewPermission]
+    permission_classes = [CustomReviewPermission]
 
     def post(self, request: Request, anime_id: int) -> Response:
         anime = get_object_or_404(Anime, pk=anime_id)
-        # ipdb.set_trace()
+
         review_exist = Review.objects.filter(anime=anime, user=request.user).exists()
         if review_exist:
             return Response(

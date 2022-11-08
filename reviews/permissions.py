@@ -1,7 +1,4 @@
-from django.shortcuts import get_object_or_404
 from rest_framework import permissions
-
-from .models import Review
 
 
 class CustomReviewPermission(permissions.BasePermission):
