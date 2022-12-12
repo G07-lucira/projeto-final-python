@@ -5,20 +5,21 @@
   - Django
   - SQLite3
 
-## Ao clonar este repositório instale no ambiente virtual(venv):
-  #### Para utilizar o venv se estiver utilizando Linux use o comando:
+## Ao clonar este repositório inicie o ambiente virtual (venv):
+  #### Para utilizar o venv no Linux use o comando:
     
         source venv/bin/activate
-  #### Para utilizar o venv se estiver utilizando Windows use o comando:
+  #### Para utilizar o venv no Windows use o comando:
     
         source venv/Scripts/activate
     
-  ### Para instalar use o comando:
+  ### Para instalar as dependências do projeto use o comando:
          pip install -r requirements.txt 
+         
    ##### Dentro do arquivo requirements.txt está todos as denpendências que o projeto necessita para o código rodar normalmente.
  
-## Após instalar pode se iniciar o projeto com
-   ### Rodando as migrations com
+## Após instalar inicie o projeto:
+   ### Rode as migrations com:
         python manage.py migrate
 #### Após rodar as migrations pode iniciar o projeto com:
         python manage.py runserver
