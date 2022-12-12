@@ -3,7 +3,7 @@
 ## Tecnologias Utilizadas:
   - Python
   - Django
-  - SQLite3
+  - Postgres
 
 ## Ao clonar este repositório inicie o ambiente virtual (venv):
   #### Para utilizar o venv no Linux use o comando:
