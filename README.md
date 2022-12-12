@@ -3,9 +3,10 @@
 ## Tecnologias Utilizadas:
   - Python
   - Django
+  - Django REST Framework
   - Postgres
+  - Redoc
   - Heroku
-
 ## Ao clonar este repositório inicie o ambiente virtual (venv):
   #### Para utilizar o venv no Linux use o comando:
     
